@@ -22,7 +22,7 @@ body {
 .markdown-me-app {
   max-width: 1920px;
   margin: 0 auto;
-  padding: 16px 32px;
+  padding: 32px 32px;
   background-color: #1f2023;
   min-height: 100vh;
   color: #fff;
@@ -50,6 +50,7 @@ p {
   text-decoration: none;
   display: inline-block;
   margin-bottom: 8px;
+  font-size: 18px;
 }
 
 /* Editor styling */
@@ -74,6 +75,7 @@ p {
   border: 1px solid #fff;
   color: #fff;
   border-radius: 8px;
+  font-size: 16px;
 }
 
 .editor-input textarea:focus {
@@ -83,4 +85,19 @@ p {
 .editor-view {
   width: 50%;
   padding: 0px 16px;
+}
+
+@media (max-width: 768px) {
+  #editor {
+    flex-direction: column;
+  }
+
+  .editor-input {
+    width: 100%;
+  }
+
+  .editor-view {
+    width: 100%;
+    padding: 0px 16px;
+  }
 }
