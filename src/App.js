@@ -1,19 +1,14 @@
-import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="app">
+    <>
       <h1>I am at homepage</h1>
       <p>You should sign-in here</p>
-      <a
-        className="app-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link className="app-link" to="/dashboard">
         Sign In
-      </a>
-    </div>
+      </Link>
+    </>
   );
 }
 

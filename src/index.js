@@ -3,11 +3,32 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import Editor from './Editor';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+  },
+  {
+    path: '/editor/:id',
+    element: <Editor />,
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <div className="markdown-me-app">
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>
 );
 
