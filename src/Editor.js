@@ -1,13 +1,40 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { snarkdownEnhanced as snarkdown } from './utils';
-import { useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
+import { config } from './config';
 
 const Editor = () => {
-  const [text, setText] = useState('');
+  const [markdown, setMarkdown] = useState('');
+  const [converted, setConverted] = useState('');
+  const { id } = useParams();
+
+  const firebaseApp = initializeApp(config.firebase);
+  const firestore = getFirestore(firebaseApp);
+
+  // This is the reference for markdowns collection
+  const markdownCol = collection(firestore, 'markdowns');
+  const markdownDoc = doc(markdownCol, id);
+
+  useEffect(() => {
+    onSnapshot(markdownDoc, (snapshot) => {
+      setMarkdown(snapshot.data().markdown);
+      setConverted(snapshot.data().converted);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const convert = (e) => {
-    const converted = snarkdown(e.target.value);
-    setText(converted);
+    const markdown = e.target.value;
+    const converted = snarkdown(markdown);
+    setDoc(markdownDoc, { markdown, converted });
   };
 
   return (
@@ -18,11 +45,11 @@ const Editor = () => {
       </Link>
       <div id="editor">
         <div className="editor-input">
-          <textarea onChange={convert}></textarea>
+          <textarea onChange={convert} value={markdown}></textarea>
         </div>
         <div
           className="editor-view"
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: converted }}
         />
       </div>
     </>
