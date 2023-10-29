@@ -5,7 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import { config } from '../../config';
 import styles from './Dashboard.module.css';
-import Header from '../../components/header/Header';
+import SubHeader from '../../components/SubHeader/SubHeader';
 
 const Dashboard = () => {
   const [markdowns, setMarkdowns] = useState([]);
@@ -29,10 +29,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header
-        actionTitle="Markdowns"
-        addNewLink="/editor/QX2pPKjDmjUBhLvb9aIq"
-      />
+      <SubHeader title="Markdowns" addNewLink="/editor/QX2pPKjDmjUBhLvb9aIq" />
       <div className={styles.dashboard}>
         <div className="container">
           <div className={styles.list}>

@@ -1,19 +1,24 @@
-.header {
-  height: 70px;
-  color: #000;
+.subHeader {
   padding: 1rem 2rem;
-  font-weight: 600;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #77777720;
+  background-color: aliceblue;
 }
-.userInfo {
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.add {
   display: flex;
   align-items: center;
+  font-weight: 600;
+  margin-bottom: 0px;
 }
-.logout {
+.back {
   display: flex;
   align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 .icon {
   margin-right: 0.5rem;

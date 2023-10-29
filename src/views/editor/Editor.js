@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { snarkdownEnhanced as snarkdown } from '../../utils/utils';
 import { initializeApp } from 'firebase/app';
 import {
@@ -10,10 +10,11 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { config } from '../../config';
-import Header from '../../components/header/Header';
 import styles from './Editor.module.css';
+import SubHeader from '../../components/SubHeader/SubHeader';
 
 const Editor = () => {
+  const [title, setTitle] = useState('');
   const [markdown, setMarkdown] = useState('');
   const [converted, setConverted] = useState('');
   const { id } = useParams();
@@ -43,10 +44,16 @@ const Editor = () => {
 
   return (
     <>
-      <Header backLink="/dashboard" backTitle="Dashboard" />
+      <SubHeader backLink="/dashboard" backTitle="Dashboard" />
       <div className="container">
         <div className={styles.editor}>
           <div className={styles.editorInput}>
+            <input
+              className={styles.input}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter Markdown Title"
+            />
             <textarea onChange={convert} value={markdown}></textarea>
           </div>
           <div
