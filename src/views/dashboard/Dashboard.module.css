@@ -1,0 +1,37 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.item {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem 2rem;
+}
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.markdownId {
+  font-size: 0.8rem;
+  margin-bottom: 1.3rem;
+  font-weight: 600;
+  color: #00000080;
+}
+.viewEdit {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.editIcon {
+  height: 1.1rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .list {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+}

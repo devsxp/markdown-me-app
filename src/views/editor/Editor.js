@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { snarkdownEnhanced as snarkdown } from './utils';
+import { snarkdownEnhanced as snarkdown } from '../../utils/utils';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -9,7 +9,9 @@ import {
   doc,
   setDoc,
 } from 'firebase/firestore';
-import { config } from './config';
+import { config } from '../../config';
+import Header from '../../components/header/Header';
+import styles from './Editor.module.css';
 
 const Editor = () => {
   const [markdown, setMarkdown] = useState('');
@@ -25,8 +27,10 @@ const Editor = () => {
 
   useEffect(() => {
     onSnapshot(markdownDoc, (snapshot) => {
-      setMarkdown(snapshot.data().markdown);
-      setConverted(snapshot.data().converted);
+      if (snapshot.data()) {
+        setMarkdown(snapshot.data().markdown);
+        setConverted(snapshot.data().converted);
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -39,18 +43,17 @@ const Editor = () => {
 
   return (
     <>
-      <h1>Editor</h1>
-      <Link className="app-link" to="/dashboard">
-        Go to Dashbaord
-      </Link>
-      <div id="editor">
-        <div className="editor-input">
-          <textarea onChange={convert} value={markdown}></textarea>
+      <Header backLink="/dashboard" backTitle="Dashboard" />
+      <div className="container">
+        <div className={styles.editor}>
+          <div className={styles.editorInput}>
+            <textarea onChange={convert} value={markdown}></textarea>
+          </div>
+          <div
+            className={styles.editorView}
+            dangerouslySetInnerHTML={{ __html: converted }}
+          />
         </div>
-        <div
-          className="editor-view"
-          dangerouslySetInnerHTML={{ __html: converted }}
-        />
       </div>
     </>
   );

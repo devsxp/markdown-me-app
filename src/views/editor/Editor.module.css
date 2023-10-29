@@ -1,0 +1,48 @@
+/* Editor styling */
+
+.editor {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.editorInput {
+  width: 50%;
+}
+
+.editorInput textarea {
+  width: 100%;
+  height: 60vh;
+  padding: 16px;
+  background-color: transparent;
+  border: 1px solid #77777720;
+  color: #000;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.editorInput textarea:focus {
+  outline: none;
+}
+
+.editorView {
+  width: 50%;
+  padding: 0px 16px;
+}
+
+@media (max-width: 768px) {
+  .editor {
+    flex-direction: column;
+  }
+
+  .editorInput {
+    width: 100%;
+  }
+
+  .editorView {
+    width: 100%;
+    padding: 0px 16px;
+  }
+}
