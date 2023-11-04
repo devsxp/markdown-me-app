@@ -1,23 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Header from '../header/Header';
+import { config } from '../../config';
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const ProtectedRoute = () => {
-  const isAuthentected = true;
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthentected) {
-      navigate('/');
+  const firebaseApp = initializeApp(config.firebase);
+  const auth = getAuth(firebaseApp);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      setUser(user);
     }
   });
 
-  return (
-    <>
-      <Header />
-      <Outlet />
-    </>
-  );
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
+
+  if (user) {
+    return (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    );
+  }
 };
 
 export default ProtectedRoute;

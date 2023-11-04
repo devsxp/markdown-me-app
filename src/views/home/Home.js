@@ -1,13 +1,41 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HomeImg from '../../assets/home.svg';
 import styles from './Home.module.css';
 import { useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { config } from '../../config';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 
 function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const onSubmit = () => {};
+  const firebaseApp = initializeApp(config.firebase);
+  const auth = getAuth(firebaseApp);
+
+  const onSubmit = async () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log(res);
+        navigate('/dashboard');
+      })
+      .catch((err) => {
+        console.log(err.message);
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((res) => {
+            console.log(res);
+            navigate('/dashboard');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+  };
 
   return (
     <div className={styles.home}>
